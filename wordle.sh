@@ -1,7 +1,7 @@
 # /usr/bin/env /bin/bash
-API_KEY=EZxi6FFkH1AjxaZtRMly1aXKzi2WPwangDegDPdRdlLjcbXdNbsoOsWn82ipFsf1
-URL=https://data.mongodb-api.com/app/data-nkpsw/endpoint/data/beta
-CLUSTER=Cluster0
+API_KEY="<YOUR API KEY>"
+URL="https://<ENDPOINT>/endpoint/data/beta"
+CLUSTER="<Name of your Cluster>"
 
 
 WORD=$(curl --location --request POST -s $URL'/action/aggregate' \
