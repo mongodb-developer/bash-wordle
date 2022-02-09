@@ -1,5 +1,6 @@
 API_KEY="<YOUR API KEY>"
 URL="https://<ENDPOINT>/endpoint/data/beta"
+CLUSTER="<Name of your Cluster>"
 
 curl --location --request POST  $URL'/action/insertMany' \
 --header 'Content-Type: application/json' \
@@ -8,6 +9,6 @@ curl --location --request POST  $URL'/action/insertMany' \
 --data-raw '{
     "collection":"words2",
     "database":"wordle",
-    "dataSource":"Cluster0",
+    "dataSource":"'$CLUSTER'",
     "documents": '$(curl -s https://raw.githubusercontent.com/mongodb-developer/bash-wordle/main/words.json)'
 }'

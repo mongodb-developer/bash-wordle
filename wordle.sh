@@ -1,6 +1,7 @@
 # /usr/bin/env /bin/bash
 API_KEY="<YOUR API KEY>"
 URL="https://<ENDPOINT>/endpoint/data/beta"
+CLUSTER="<Name of your Cluster>"
 
 
 WORD=$(curl --location --request POST -s $URL'/action/aggregate' \
@@ -10,7 +11,7 @@ WORD=$(curl --location --request POST -s $URL'/action/aggregate' \
 --data-raw '{
     "collection":"words",
     "database":"wordle",
-    "dataSource":"Cluster0",
+    "dataSource":"'$CLUSTER'",
     "pipeline": [{"$sample": {"size": 1}}]
 }' | jq -r .documents[0].word)
 
