@@ -21,7 +21,7 @@ TRIES=0
 while [ $GO_ON -eq 1 ]
 do
   TRIES=$(expr $TRIES + 1)
-  read  -n 5 -p "What is your guess: " USER_GUESS
+  read -e -n 5 -p "What is your guess: " USER_GUESS
   USER_GUESS=$(echo "$USER_GUESS" | awk '{print toupper($0)}')
   STATE=""
   for i in {0..4}
