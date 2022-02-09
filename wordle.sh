@@ -1,7 +1,7 @@
 # /usr/bin/env /bin/bash
-API_KEY="<YOUR API KEY>"
-URL="https://<ENDPOINT>/endpoint/data/beta"
-CLUSTER="<Name of your Cluster>"
+API_KEY=EZxi6FFkH1AjxaZtRMly1aXKzi2WPwangDegDPdRdlLjcbXdNbsoOsWn82ipFsf1
+URL=https://data.mongodb-api.com/app/data-nkpsw/endpoint/data/beta
+CLUSTER=Cluster0
 
 
 WORD=$(curl --location --request POST -s $URL'/action/aggregate' \
@@ -21,7 +21,7 @@ TRIES=0
 while [ $GO_ON -eq 1 ]
 do
   TRIES=$(expr $TRIES + 1)
-  read -e -n 5 -p "What is your guess: " USER_GUESS
+  read -n 5 -p "What is your guess: " USER_GUESS
   USER_GUESS=$(echo "$USER_GUESS" | awk '{print toupper($0)}')
   STATE=""
   for i in {0..4}
