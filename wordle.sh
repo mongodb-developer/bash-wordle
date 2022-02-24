@@ -1,7 +1,12 @@
-# /usr/bin/env /bin/bash
+#!/usr/bin/env /bin/bash
 API_KEY="<YOUR API KEY>"
 URL="https://<ENDPOINT>/endpoint/data/beta"
 CLUSTER="<Name of your Cluster>"
+
+STR01="\nOk, I picked a word, try to guess\n"
+STR02="What is your guess:"
+STR03="You won!"
+STR04="\nYou failed. The word was"
 
 WORDS=$(curl --location --fail --request POST -s $URL'/action/aggregate' \
   --header 'Content-Type: application/json' \
@@ -22,6 +27,10 @@ else
     LANG="-us"
   else
     LANG="-br"
+    STR01="\nOk, escolhi uma palavra de 5 letras, consegue advinhar?\n"
+    STR02="Qual palavra eu escolhi?"
+    STR03="\nParabéns, você descobriu!\n"
+    STR04="\nVocê falhou. A palavra era"
   fi
   JSON="words$LANG.json"
   WORDS=$(grep -o -i word $JSON | wc -l)
@@ -29,12 +38,12 @@ else
   WORD=$(jq -r .[$PICK].word $JSON)
 fi
 
-echo -e "Ok, I picked a word, try to guess\n"
+echo -e "$STR01"
 GO_ON=1
 TRIES=0
 while [[ $GO_ON -eq 1 ]]; do
   TRIES=$(expr $TRIES + 1)
-  read -n 5 -p "What is your guess: " USER_GUESS
+  read -n 5 -p "$STR02 " USER_GUESS
   USER_GUESS=$(echo "$USER_GUESS" | awk '{print toupper($0)}')
   STATE=""
   for i in {0..4}; do
@@ -48,10 +57,10 @@ while [[ $GO_ON -eq 1 ]]; do
   done
   echo "  "$STATE
   if [[ $USER_GUESS == $WORD ]]; then
-    echo -e "You won!"
+    echo -e "$STR03"
     GO_ON=0
   elif [[ $TRIES == 5 ]]; then
-    echo -e "You failed.\nThe word was "$WORD
+    echo -e "$STR04 $WORD.\n"
     GO_ON=0
   fi
 done
